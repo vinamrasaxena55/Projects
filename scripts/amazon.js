@@ -113,13 +113,44 @@ products.forEach((product,index)=>{//looping through products array and generati
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary  js-add-to-cart"
+           data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>
    `;
 });
-console.log(productsHtml);
+// data-product-name="${product.name}">   data attribute which product adding to cart
+//we use product.id bcz it is unique
+// console.log(productsHtml);
 
 document.querySelector('.js-products-grid').innerHTML=productsHtml;
 //above line makes all html change to products Html
+
+
+//making cart add button interactive
+document.querySelectorAll('.js-add-to-cart')
+.forEach((button)=>{//looping through each button and on clicking
+ button.addEventListener('click',()=>{
+   const productId= button.dataset.productId;//.dataset gives all info to data-  attribute
+   let matchingItem;
+   cart.forEach((item)=>{
+        if(productId===item.productId){
+               //if item already in cart
+               matchingItem=item;
+        }
+   });
+
+   if(matchingItem){//boolean type if there true 
+           matchingItem.quantity +=1;
+   }
+   else{
+      cart.push({
+    productId : productId,
+    quantity:1
+   });
+   }
+   
+   console.log(cart);
+ });
+});
