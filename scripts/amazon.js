@@ -58,7 +58,7 @@
 // ];
 
 
-import {cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 //this above line means we can use cart here from cart.js 
 //.. means getting out of current folder which is script
@@ -132,35 +132,25 @@ document.querySelector('.js-products-grid').innerHTML=productsHtml;
 //above line makes all html change to products Html
 
 
+
+
+ function updateCartQuantity(){//it is here not in cart bcz it helps in updating web page
+      let cartQuantity=0;
+   cart.forEach((cartItem)=>{
+        cartQuantity +=cartItem.quantity;
+   });
+   document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
+   //now our cart quantity is interactive as quantity increase number change
+}
+
 //making cart add button interactive
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{//looping through each button and on clicking
  button.addEventListener('click',()=>{
    const productId= button.dataset.productId;//.dataset gives all info to data-  attribute
-   let matchingItem;
-   cart.forEach((item)=>{
-        if(productId===item.productId){
-               //if item already in cart
-               matchingItem=item;
-        }
-   });
-
-   if(matchingItem){//boolean type if there true 
-           matchingItem.quantity +=1;
-   }
-   else{
-      cart.push({
-    productId : productId,
-    quantity:1
-   });
-   }
-
-   let cartQuantity=0;
-   cart.forEach((item)=>{
-        cartQuantity +=item.quantity;
-   });
-   document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
-   //now our cart quantity is interactive as quantity increase number change
+    addToCart(productId);//parameter necessary
+   updateCartQuantity();
+  
 
 
   
