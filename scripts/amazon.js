@@ -58,7 +58,10 @@
 // ];
 
 
-
+import {cart} from '../data/cart.js';
+//this above line means we can use cart here from cart.js 
+//.. means getting out of current folder which is script
+//this method prevent naming conflict
 
 let productsHtml=''; //we commented products here as we get our data 
 //products array which we store in another file name data.js

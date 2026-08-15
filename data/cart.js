@@ -1,2 +1,2 @@
 //we will make cart here to interact with amazon
-const cart=[];
+export const cart=[];//now this variable can be used outside this file
