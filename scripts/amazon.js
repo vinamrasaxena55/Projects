@@ -59,6 +59,7 @@
 
 
 import {cart} from '../data/cart.js';
+import { products } from '../data/products.js';
 //this above line means we can use cart here from cart.js 
 //.. means getting out of current folder which is script
 //this method prevent naming conflict
