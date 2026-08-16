@@ -14,10 +14,11 @@ cart.forEach((cartItem)=>{
         matchingProduct=product;//now we have access to img etc
       }
     });
-   
+   // js-cart-item-container-${matchingProduct.id    to update html after deletion
  
           cartSummaryHtml += `
-          <div class="cart-item-container">
+          <div class="cart-item-container 
+           js-cart-item-container-${matchingProduct.id}">
 
                 <div class="delivery-date">
                 Delivery date: Tuesday, June 21
@@ -111,5 +112,10 @@ document.querySelectorAll('.js-delete-link')
  //on clicking  print delete
  const productId=link.dataset.productId;
  removeFromCart(productId);
+
+     const container=document.querySelector(
+        '.js-cart-item-container-${productId}'
+     );
+     container.remove();//remove from web page
       });
    });
