@@ -93,7 +93,7 @@ products.forEach((product,index)=>{//looping through products array and generati
           </div>
 
           <div class="product-price">
-            $${formatCurrency.product.priceCents}
+            $${formatCurrency(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">

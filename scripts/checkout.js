@@ -1,4 +1,4 @@
-import { cart } from "../data/cart";
+import { cart , removeFromCart} from "../data/cart";
 import { products } from "../data/products";
 import { formatCurrency } from "./utils/money";//single . bcz inside script folder
 
@@ -41,7 +41,8 @@ cart.forEach((cartItem)=>{
                     <span class="update-quantity-link link-primary">
                         Update
                     </span>
-                    <span class="delete-quantity-link link-primary">
+                    <span class="delete-quantity-link link-primary js-delete-link"
+                    data-product-id="${matchingProduct.id}">
                         Delete
                     </span>
                     </div>
@@ -102,4 +103,13 @@ cart.forEach((cartItem)=>{
 document.querySelector('.js-order-summary')
 .innerHTML=cartSummaryHtml;//replacing html with html using js
 
-console.log(cartSummaryHtml);
+
+//made data-product-link to remove and match data
+document.querySelectorAll('.js-delete-link')
+   .forEach((link)=>{//making delete button interactive using eventlistner
+      link.addEventListener('click',()=>{
+ //on clicking  print delete
+ const productId=link.dataset.productId;
+ removeFromCart(productId);
+      });
+   });

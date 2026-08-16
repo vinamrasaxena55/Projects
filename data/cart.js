@@ -33,5 +33,15 @@ export function addToCart(productId){
    }
 }
 
-
+export function removeFromCart(productId){
+      //create new array
+      //loop through cart
+      //add each product to new array, except for this productid  
+      cart.forEach((cartItem)=>{
+        if(cartItem.productId !==productId){
+           newCart.push(cartItem);
+        }
+      });
+      cart=newCart;//replace the cart
+}
 
