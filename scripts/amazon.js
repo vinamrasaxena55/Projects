@@ -60,6 +60,7 @@
 
 import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
 //this above line means we can use cart here from cart.js 
 //.. means getting out of current folder which is script
 //this method prevent naming conflict
@@ -92,7 +93,7 @@ products.forEach((product,index)=>{//looping through products array and generati
           </div>
 
           <div class="product-price">
-            $${(product.priceCents/100).toFixed(2)}
+            $${formatCurrency.product.priceCents}
           </div>
 
           <div class="product-quantity-container">
