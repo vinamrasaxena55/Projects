@@ -64,3 +64,20 @@ let newCart = [];
       saveToStorage();
 }
 
+
+export function updateDeliveryOption(productId,deliveryOptionId){
+ //loop through cart and find product
+ //update delivery optionId of product
+
+  let matchingItem;
+    cart.forEach((cartItem)=>{
+          if(productId===cartItem.productId){
+                //if item already in cart
+                matchingItem=cartItem;
+          }
+    });
+  //updating delivery id 
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveToStorage();
+}
