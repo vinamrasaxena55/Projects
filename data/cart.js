@@ -1,6 +1,9 @@
 //we will make cart here to interact with amazon
-export const cart=[{//we are just saving id, which we can use to search 
+export const cart=JSON.parse(localStorage.getItem('cart'));
+//we are just saving id, which we can use to search 
   //products in products.js
+  if(!cart){//if cart empty put some default values
+     [{
    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
    quantity: 2
 },
@@ -8,8 +11,17 @@ export const cart=[{//we are just saving id, which we can use to search
   productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
    quantity: 1//giving some default values
 }
+  ];
+  }
+ 
 
-];//now this variable can be used outside this file
+//now this variable can be used outside this file
+
+
+function saveToStorage(){
+  localStorage.setItem('cart',JSON.stringify(cart));
+  //remember local storage can only store strings
+}
 
 
 
@@ -31,6 +43,7 @@ export function addToCart(productId){
     quantity:1
    });
    }
+   saveToStorage();//whenever saved store in local storage
 }
 
 export function removeFromCart(productId){
@@ -43,5 +56,6 @@ export function removeFromCart(productId){
         }
       });
       cart=newCart;//replace the cart
+      saveToStorage();
 }
 
