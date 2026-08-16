@@ -61,6 +61,7 @@
 import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
 //this above line means we can use cart here from cart.js 
 //.. means getting out of current folder which is script
 //this method prevent naming conflict
@@ -157,3 +158,4 @@ document.querySelectorAll('.js-add-to-cart')
   
  });
 });
+updateCartQuantity();

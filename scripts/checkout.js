@@ -1,6 +1,17 @@
-import { cart , removeFromCart} from "../data/cart";
-import { products } from "../data/products";
-import { formatCurrency } from "./utils/money";//single . bcz inside script folder
+import { cart , removeFromCart} from "../data/cart.js";
+import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";//single . bcz inside script folder
+import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';//external library
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';//without {} inbuilt external lib
+import { deliveryOptions } from "../data/deliveryOptions.js";
+
+
+// hello();
+// console.log(dayjs()); these are from external library
+
+// const today=dayjs();
+// today.add(7,'days');//add 7 days to todays date
+// deliveryDate.format('dddd,MMMM D ');//format of day then month then date
 
 let cartSummaryHtml='';
 
@@ -16,12 +27,31 @@ cart.forEach((cartItem)=>{
     });
    // js-cart-item-container-${matchingProduct.id    to update html after deletion
  
+
+           const deliveryOptionId=cartItem.deliveryOptionId;
+
+           let deliveryOption;
+
+            deliveryOptions.forEach((option)=>{
+               if(option.id=== deliveryOptionId){
+                deliveryOption=option;
+               }
+            });
+            const today=dayjs();
+            const deliveryDate=today.add(
+         deliveryOption.deliveryDays,
+         'days'// date according to us
+          );
+          const dateString =deliveryDate.format(
+           'dddd, MMMM D'
+          );
+
           cartSummaryHtml += `
           <div class="cart-item-container 
            js-cart-item-container-${matchingProduct.id}">
 
                 <div class="delivery-date">
-                Delivery date: Tuesday, June 21
+                Delivery date: ${dateString}
                 </div>
 
                 <div class="cart-item-details-grid">
@@ -33,7 +63,7 @@ cart.forEach((cartItem)=>{
                    ${matchingProduct.name}
                     </div>
                     <div class="product-price">
-                    ${formatCurrency(matchingProduct.priceCents)}
+                    $${formatCurrency(matchingProduct.priceCents)}
                     </div>
                     <div class="product-quantity">
                     <span>
@@ -53,45 +83,7 @@ cart.forEach((cartItem)=>{
                     <div class="delivery-options-title">
                     Choose a delivery option:
                     </div>
-                    <div class="delivery-option">
-                    <input type="radio" checked
-                        class="delivery-option-input"
-                        name="delivery-option-${matchingProduct.id}">
-                    <div>
-                        <div class="delivery-option-date">
-                        Tuesday, June 21
-                        </div>
-                        <div class="delivery-option-price">
-                        FREE Shipping
-                        </div>
-                    </div>
-                    </div>
-                    <div class="delivery-option">
-                    <input type="radio"
-                        class="delivery-option-input"
-                        name="${matchingProduct.id}">
-                    <div>
-                        <div class="delivery-option-date">
-                        Wednesday, June 15
-                        </div>
-                        <div class="delivery-option-price">
-                        $4.99 - Shipping
-                        </div>
-                    </div>
-                    </div>
-                    <div class="delivery-option">
-                    <input type="radio"
-                        class="delivery-option-input"
-                        name="${matchingProduct.id}">
-                    <div>
-                        <div class="delivery-option-date">
-                        Monday, June 13
-                        </div>
-                        <div class="delivery-option-price">
-                        $9.99 - Shipping
-                        </div>
-                    </div>
-                    </div>
+                   ${deliveryOptionsHTML(matchingProduct,cartItem)}
                 </div>
                 </div>
             </div>
@@ -100,6 +92,58 @@ cart.forEach((cartItem)=>{
 
 //we changed name in radio to ${matchingProduct.id} istead of dilevery-option-1 bcz it will 
 //enable us to choose diff option if name differs
+// ${deliveryOptionsHTML(matchingProduct)}  we passed argument bcz fn doesnt have matching product
+
+
+
+function deliveryOptionsHTML(matchingProduct,cartItem){
+    let html='';
+    //loop through deliveryOptions
+    //for each option . generate some HTML
+    //Combine Html together
+    deliveryOptions.forEach((deliveryOption)=>{
+          const today=dayjs();
+          const deliveryDate=today.add(
+         deliveryOption.deliveryDays,
+         'days'// date according to us
+          );
+          const dateString =deliveryDate.format(
+           'dddd, MMMM D'
+          );
+        const priceString=deliveryOption.priceCents
+        ===0 
+        ? 'FREE'
+        : `$${formatCurrency(deliveryOption.priceCents)}`;//`` to read deliveryOption.priceCents 
+
+
+        const isChecked=deliveryOption.id === cartItem.deliveryOptionId;
+
+          html += `
+                <div class="delivery-option">
+                    <input type="radio"
+                    ${isChecked ? 'checked' : ''}
+                        class="delivery-option-input"
+                        name="${matchingProduct.id}">
+                    <div>
+                        <div class="delivery-option-date">
+                        ${dateString}
+                        </div>
+                        <div class="delivery-option-price">
+                        ${priceString} - Shipping
+                        </div>
+                    </div>
+                    </div>
+                   
+                    `;
+                    console.log(dayjs().format('dddd, MMMM D, YYYY'));
+    });
+    return html;
+}
+
+
+
+
+
 
 document.querySelector('.js-order-summary')
 .innerHTML=cartSummaryHtml;//replacing html with html using js
@@ -114,7 +158,7 @@ document.querySelectorAll('.js-delete-link')
  removeFromCart(productId);
 
      const container=document.querySelector(
-        '.js-cart-item-container-${productId}'
+        `.js-cart-item-container-${productId}`//used `` here instead of '' bcz it will read productId
      );
      container.remove();//remove from web page
       });
