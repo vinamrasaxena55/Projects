@@ -1,5 +1,15 @@
 //we will make cart here to interact with amazon
-export const cart=[];//now this variable can be used outside this file
+export const cart=[{//we are just saving id, which we can use to search 
+  //products in products.js
+   productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+   quantity: 2
+},
+{
+  productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+   quantity: 1//giving some default values
+}
+
+];//now this variable can be used outside this file
 
 
 
