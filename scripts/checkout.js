@@ -13,6 +13,9 @@ import { deliveryOptions } from "../data/deliveryOptions.js";
 // today.add(7,'days');//add 7 days to todays date
 // deliveryDate.format('dddd,MMMM D ');//format of day then month then date
 
+function  renderOrderSummary(){
+
+
 let cartSummaryHtml='';
 
 cart.forEach((cartItem)=>{
@@ -172,5 +175,9 @@ document.querySelectorAll('.js-delivery-option')
    element.addEventListener('click',()=>{
     const {productId,deliveryOptionId}=element.dataset;//deconstructor
      updateDeliveryOption(productId,deliveryOptionId);
+     renderOrderSummary();//rerun code so to update delivery in top
+     //updated data and rerum it
    });
   });
+}
+renderOrderSummary();//we did so after updating run code
