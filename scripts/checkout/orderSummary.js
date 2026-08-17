@@ -1,9 +1,9 @@
 import { cart , removeFromCart, updateDeliveryOption} from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products ,getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";//single . bcz inside script folder
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';//external library
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';//without {} inbuilt external lib
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 
 
 // hello();
@@ -21,25 +21,26 @@ let cartSummaryHtml='';
 cart.forEach((cartItem)=>{
   //generating html of checkout using js
     const productId=cartItem.productId;//iterating 
-    let matchingProduct;
+    let matchingProduct =getProduct(productId);
 
-    products.forEach((product)=>{
-      if(product.id === productId){
-        matchingProduct=product;//now we have access to img etc
-      }
-    });
+    // products.forEach((product)=>{
+    //   if(product.id === productId){
+    //     matchingProduct=product;//now we have access to img etc
+    //   }
+    // });
    // js-cart-item-container-${matchingProduct.id    to update html after deletion
  
 
            const deliveryOptionId=cartItem.deliveryOptionId;
 
-           let deliveryOption;
+           const deliveryOption=getDeliveryOption(deliveryOptionId);
+           //made an external fn
 
-            deliveryOptions.forEach((option)=>{
-               if(option.id=== deliveryOptionId){
-                deliveryOption=option;
-               }
-            });
+            // deliveryOptions.forEach((option)=>{
+            //    if(option.id=== deliveryOptionId){
+            //     deliveryOption=option;
+            //    }
+            // });
             const today=dayjs();
             const deliveryDate=today.add(
          deliveryOption.deliveryDays,
