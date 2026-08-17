@@ -4,7 +4,7 @@ import { formatCurrency } from "../utils/money.js";//single . bcz inside script 
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';//external library
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';//without {} inbuilt external lib
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
-
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 // hello();
 // console.log(dayjs()); these are from external library
@@ -168,6 +168,7 @@ document.querySelectorAll('.js-delete-link')
         `.js-cart-item-container-${productId}`//used `` here instead of '' bcz it will read productId
      );
      container.remove();//remove from web page
+     renderPaymentSummary();//updating page after deletion of items
       });
    });
 
@@ -178,6 +179,7 @@ document.querySelectorAll('.js-delivery-option')
      updateDeliveryOption(productId,deliveryOptionId);
      renderOrderSummary();//rerun code so to update delivery in top
      //updated data and rerum it
+     renderPaymentSummary();//update payment when delivery option changed
    });
   });
 }

@@ -13,7 +13,7 @@ export function renderPaymentSummary(){
    productPriceCents+=product.priceCents * cartItem.quantity;
 
   const deliveryOption= getDeliveryOption(cartItem.deliveryOptionId);
-   shippingPriceCents+=deliveryOption.priceCents;
+   shippingPriceCents+=deliveryOption.priceCents* cartItem.quantity;
   });
    const totalBeforeTaxCents=productPriceCents + shippingPriceCents;
    const taxCents= totalBeforeTaxCents*0.1;//10% tax
