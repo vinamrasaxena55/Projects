@@ -1,5 +1,12 @@
 //we will make cart here to interact with amazon
-export let cart=JSON.parse(localStorage.getItem('cart'));
+export let cart;
+
+loadFromStorage();
+
+
+ 
+export function loadFromStorage(){
+  cart=JSON.parse(localStorage.getItem('cart'));
 //converting from string back to array
 //we are just saving id, which we can use to search 
   //products in products.js
@@ -18,6 +25,7 @@ export let cart=JSON.parse(localStorage.getItem('cart'));
   }
 
 //now this variable can be used outside this file
+}
 
 
 function saveToStorage(){
