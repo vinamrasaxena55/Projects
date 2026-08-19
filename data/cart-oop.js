@@ -65,7 +65,7 @@ let newCart = [];
 },
 
 updateDeliveryOption(productId,deliveryOptionId){
- /
+ 
   let matchingItem;
     this.cartItems.forEach((cartItem)=>{
           if(productId===cartItem.productId){
