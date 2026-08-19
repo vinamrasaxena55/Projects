@@ -75,6 +75,36 @@ class Clothing extends Product{
 // const tshirt=new Clothing();
 
 
+// const date=new Date();
+// console.log(date.toLocaleTimeString());
+// console.log(this);//undefined 
+// in js we can use this anywhere
+
+// const object2={
+//   a:2,
+//   b:this.a
+// };//this undefined object 2 not created when it is used so it give error
+
+// function ho(){
+//   console.log(this);
+//   //not inside of any object so there is nothing for 'this' to point to
+// }
+// ho();
+// ho.call();//calls console.log(this)
+//ho.call('hello');//prints hello
+//inside function we can change this to whatever we want
+
+const object3={
+  method :() =>{
+    console.log(this);//'this' will have same value as outside the arrow function
+    //this keeps the value that it had outside the arrow function
+    //if outside undefined then inside also
+  }
+};
+
+
+
+
 export const products = [//making it module
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
