@@ -1,21 +1,22 @@
 class Cart{//when we generate object it will have property of this and method of this class
   cartItems;//adding property to class each object will have this property when added
-  localStorageKey;//if no value iniatalized then it is undefined
+  #localStorageKey;//if no value iniatalized then it is undefined
 
 
   //constructor should not return anything
+  //we made localStorageKey private as we dont want others to access it or change it outside code
   constructor(localStorageKey){//run object in constructor and set up object
     //     cart.localStorageKey='cart-oop';
     // buisnesscart.localStorageKey='cart-business';
     // buisnesscart.loadFromStorage();
 
     // cart.loadFromStorage();
-    this.localStorageKey=localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey=localStorageKey;
+    this.#loadFromStorage();
   }
 
-   loadFromStorage  (){//same as  loadFromStorage : function()
-  this.cartItems=JSON.parse(localStorage.getItem(this.localStorageKey));
+   #loadFromStorage  (){//same as  loadFromStorage : function()
+  this.cartItems=JSON.parse(localStorage.getItem(this.#localStorageKey));
   //this used to tell object 
  
   //products in products.js
@@ -34,7 +35,7 @@ class Cart{//when we generate object it will have property of this and method of
   }
 }
 saveToStorage(){
-  localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+  localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
 }
 
 addToCart(productId){
