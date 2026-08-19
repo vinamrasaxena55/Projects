@@ -30,23 +30,50 @@ class Product{
   getPrice(){
    return `${formatCurrency(this.priceCents)}`;
   }
+
+   extraInfoHTML(){
+    return '';
+   }
 }
 
-const product1=new Product( {
-    id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-    name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-    rating: {
-      stars: 4.5,
-      count: 87
-    },
-    priceCents: 1090,
-    keywords: [
-      "socks",
-      "sports",
-      "apparel"
-    ]//giving entire object to new object
-  });//generating an object
+// const product1=new Product( {
+//     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+//     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
+//     name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
+//     rating: {
+//       stars: 4.5,
+//       count: 87
+//     },
+//     priceCents: 1090,
+//     keywords: [
+//       "socks",
+//       "sports",
+//       "apparel"
+//     ]//giving entire object to new object
+//   });//generating an object
+
+
+class Clothing extends Product{
+  //creating child class
+  sizeChartLink;
+ 
+  constructor(productDetails){
+     super(productDetails);//call parent constructor and its method
+  this.sizeChartLink=productDetails.sizeChartLink;
+  }
+//super.extraInfoHTML()   used for accesing parent 
+   extraInfoHTML(){//overides parent method
+    //link for size chart
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
+    `;//it will open page containing size chart
+    //" target="_blank"  tells to open in new web page
+   }
+
+}//it has all property of product+sizeChartLink
+
+// const tshirt=new Clothing();
+
 
 export const products = [//making it module
   {
@@ -708,8 +735,16 @@ export const products = [//making it module
     ]
   }
 ].map((productDetails)=>{
+  if(productDetails.type==='clothing'){
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
 //map loops through all element in array
 //it returns a value that is stored in a new array
 //with each loop an object is forming
+//in products we added type which tells us which belong to which class
+//this is called discriminator property
+
+// console.log(product);
+// console.log(product.extraInfoHTML());

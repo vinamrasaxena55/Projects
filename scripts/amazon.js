@@ -75,6 +75,8 @@ products.forEach((product,index)=>{//looping through products array and generati
     //in our price /100 to convert to dollars
     //.toFixed for deciding number of ddecimals
     //we replaced stars And price by methods in class of products
+
+     
    productsHtml+=`
       <div class="product-container">
           <div class="product-image-container">
@@ -112,6 +114,8 @@ products.forEach((product,index)=>{//looping through products array and generati
               <option value="10">10</option>
             </select>
           </div>
+        
+           ${product.extraInfoHTML()}
 
           <div class="product-spacer"></div>
 
@@ -130,7 +134,8 @@ products.forEach((product,index)=>{//looping through products array and generati
 // data-product-name="${product.name}">   data attribute which product adding to cart
 //we use product.id bcz it is unique
 // console.log(productsHtml);
-
+//  ${product.extraInfoHTML()} if clothing then return size chart else empty string
+//${product.extraInfoHTML()}  we dont know which class -polymorphism
 document.querySelector('.js-products-grid').innerHTML=productsHtml;
 //above line makes all html change to products Html
 
