@@ -74,6 +74,7 @@ products.forEach((product,index)=>{//looping through products array and generati
     //in our rating ones we multiply by 10 bcz our images for 4.5 star is saved as 45 and so on
     //in our price /100 to convert to dollars
     //.toFixed for deciding number of ddecimals
+    //we replaced stars And price by methods in class of products
    productsHtml+=`
       <div class="product-container">
           <div class="product-image-container">
@@ -87,14 +88,14 @@ products.forEach((product,index)=>{//looping through products array and generati
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars *10}.png">
+              src="${product.getStarsurl()}">
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${formatCurrency(product.priceCents)}
+            ${product.getPrice()}
           </div>
 
           <div class="product-quantity-container">
