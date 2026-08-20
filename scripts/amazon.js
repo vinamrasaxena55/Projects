@@ -59,8 +59,16 @@
 
 
 import {cart, addToCart} from '../data/cart.js';
-import { products } from '../data/products.js';
+import { products,loadProducts } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+
+loadProducts(renderProductGrid);//products
+//function passed inside bcz it takes time to recieve response of http request
+//without it there will be delay
+//it is a callback-a function that run in future
+
+function renderProductGrid(){
+
 
 //this above line means we can use cart here from cart.js 
 //.. means getting out of current folder which is script
@@ -164,4 +172,4 @@ document.querySelectorAll('.js-add-to-cart')
   
  });
 });
-updateCartQuantity();
+}
