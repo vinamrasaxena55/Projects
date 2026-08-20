@@ -1,11 +1,21 @@
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js';
 import {addToCart,loadFromStorage,cart} from '../../data/cart.js';
-
+import { loadProducts } from '../../data/products.js';
 describe('test suite : renderOrderSummary',()=>{
    const productId1='e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
          const productId2='15b6fc6f-327a-4ec4-896f-486349e85a3d';
    //creating a hook, hook let us run code for test
    //before each test it will run this
+
+ beforeAll((done)=>{//done is fn provided by jasmine it do net let others run
+  //wait till it is called,done allows us to control when to go to next step
+  loadProducts(()=>{
+    done();//when load products finish then it let other run
+  });
+
+ });//runs this code before all other tests
+
+
    beforeEach(()=>{
       document.querySelector('.js-test-container')
       .innerHTML=`<div class="js-order-summary"></div>
@@ -32,6 +42,8 @@ describe('test suite : renderOrderSummary',()=>{
         });
         loadFromStorage();
         renderOrderSummary();
+      });
+        it('displays-cart',()=>{}
 
       expect(document.querySelectorAll('.js-cart-item-contaioner-test').length).toEqual(2);
       //checking if added two items
@@ -41,7 +53,7 @@ describe('test suite : renderOrderSummary',()=>{
       expect(document.querySelector(`.js-product-quantity-${productId2}`).innerText
     ).toContain('Quantity: 1');  
 
-
+  });
 
     document.querySelector('.js-test-container')
       .innerHTML='';//seeting as empty string to clean up Dom after test finish
