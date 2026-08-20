@@ -102,6 +102,35 @@ const object3={
   }
 };
 
+//feth better method for http request,it uses promise
+export function loadProductsFetch(){
+  //when we get response we go to next step
+  //the response inside then will have response from backend
+  const promise= fetch(
+    'https://supersimplebackend.dev/products').
+    then((response)=>{
+    // console.log(response);
+   return response.json();
+   }).then((proaductsData)=>{
+    // console.log(proaductsData);//array of products
+     //it is asyncronus meaning its a promise and we need to wait for it to finish
+
+      products=proaductsData.map((productDetails)=>{//converting to class ,no need for JSON.parse as we already have array
+   if(productDetails.type==='clothing'){
+     return new Clothing(productDetails);
+  }
+   return new Product(productDetails);
+ });
+    console.log('load products')
+
+   });//when response.json finishes
+   return promise;
+}
+/*
+loadProductsFetch().then(()=>{
+   console.log('Next step');
+});*/
+
 //instead of generating products with const products we will generate them using api backend
 export let products=[];
 

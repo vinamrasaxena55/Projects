@@ -1,6 +1,6 @@
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js';
 import {addToCart,loadFromStorage,cart} from '../../data/cart.js';
-import { loadProducts } from '../../data/products.js';
+import { loadProducts,loadProductsFetch } from '../../data/products.js';
 describe('test suite : renderOrderSummary',()=>{
    const productId1='e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
          const productId2='15b6fc6f-327a-4ec4-896f-486349e85a3d';
@@ -9,9 +9,11 @@ describe('test suite : renderOrderSummary',()=>{
 
  beforeAll((done)=>{//done is fn provided by jasmine it do net let others run
   //wait till it is called,done allows us to control when to go to next step
-  loadProducts(()=>{
+  loadProductsFetch().then//returns a promise
+  (()=>{
     done();//when load products finish then it let other run
   });
+ 
 
  });//runs this code before all other tests
 

@@ -3,7 +3,7 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 import { loadCart } from "../data/cart.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 //we have devided checkout.js to two parts so 
 //we can less code in each file
 //orderSummary and paymentSummary
@@ -26,18 +26,20 @@ import { loadProducts } from "../data/products.js";
 
 //in this promise act as component as array and is part of Promise All
 Promise.all([
-    new Promise((resolve)=>{
-   loadProducts(()=>{
-resolve('value1');//waited till finished loading
-   });
-   }),
+//     new Promise((resolve)=>{
+//    loadProductsFetch(()=>{
+// resolve('value1');//waited till finished loading
+//    });
+//    }),
+  loadProductsFetch(),
    new Promise((resolve)=>{
        loadCart(()=>{
         resolve();//when finished running fn inside load cart
        });
     })
 
-]).then(()=>{
+]).then((values)=>{
+    console.log(values);
      renderOrderSummary();
     renderPaymentSummary();
 });
