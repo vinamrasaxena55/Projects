@@ -41,7 +41,7 @@ async function loadPage(){
     //reject manually create error
    // throw 'error2'; it will behave like syncronus code send it in catch and not load cart
        loadCart(()=>{//throw error will not work here bcz it runs in future 
-        reject('error3');
+      //  reject('error3');
         resolve('value3');//when finished running fn inside load cart
        });
     });
@@ -49,7 +49,7 @@ async function loadPage(){
   console.log('Unexpected error. Please try again later');
 }//work similar as promise
    
-    console.log(value);//instead of passing value like we used to do in then here we 
+  //  console.log(value);//instead of passing value like we used to do in then here we 
     //can simply store them in variable
     //after loading page and cart we load html
     renderOrderSummary();
