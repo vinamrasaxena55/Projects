@@ -89,3 +89,19 @@ export function updateDeliveryOption(productId,deliveryOptionId){
 
   saveToStorage();
 }
+
+
+//loading cart with backend and then making it class
+export function loadCart(fun){
+const xhr=new XMLHttpRequest();
+  xhr.addEventListener('load',() => {
+ console.log(xhr.response);
+ console.log('loadProducts');
+  //  console.log(cart); array to class
+   //back to arry to be used in code
+   fun();//after we load response we run this function which has html code
+  });
+   
+   xhr.open('GET','https://supersimplebackend.dev/cart');
+   xhr.send();
+}

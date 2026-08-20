@@ -105,7 +105,7 @@ const object3={
 //instead of generating products with const products we will generate them using api backend
 export let products=[];
 
-export function loadProducts(fun){
+export function loadProducts(fun  = () => {}){//this inside parameter to prevent error if fun is undefined
 const xhr=new XMLHttpRequest();
   xhr.addEventListener('load',() => {
    // console.log(xhr.response);//all products in console
