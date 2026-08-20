@@ -24,6 +24,43 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 //1- start promise  2- loadProducts  3-finished loading  4-next step
 
 
+//async wait for asynchronus code
+//async  makes fn return promise
+//can only use await when inside async fn
+async function loadPage(){
+    console.log('load page');
+    await loadProductsFetch();//to wait for it to end
+    //waits before going to next line
+
+
+ const value=   await new Promise((resolve)=>{
+       loadCart(()=>{
+        resolve('value3');//when finished running fn inside load cart
+       });
+    });
+    console.log(value);//instead of passing value like we used to do in then here we 
+    //can simply store them in variable
+    //after loading page and cart we load html
+    renderOrderSummary();
+    renderPaymentSummary();
+    return 'value2';
+}
+loadPage();//bcz await used so no need for then
+//the only way for to wait for promise to end is to use then but await is better
+// loadPage().then((value)=>{//value2 saved inside value
+
+//     console.log('next step');//as we know async return promise so we used then
+//     console.log(value);//value2
+// })
+
+
+
+
+
+
+
+/*
+
 //in this promise act as component as array and is part of Promise All
 Promise.all([
 //     new Promise((resolve)=>{
@@ -45,7 +82,7 @@ Promise.all([
 });
 
 
-
+*/
 
 
 
