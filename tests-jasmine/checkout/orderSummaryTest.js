@@ -43,7 +43,7 @@ describe('test suite : renderOrderSummary',()=>{
         loadFromStorage();
         renderOrderSummary();
       });
-        it('displays-cart',()=>{}
+        it('displays-cart',()=>{
 
       expect(document.querySelectorAll('.js-cart-item-contaioner-test').length).toEqual(2);
       //checking if added two items
@@ -113,6 +113,6 @@ describe('test suite : renderOrderSummary',()=>{
     });
 
     
-});
+
 //when we check it doesnt load css 
 //but gives a gist of page and specs of testing
