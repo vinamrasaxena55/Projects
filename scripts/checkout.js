@@ -27,17 +27,28 @@ import { loadProducts, loadProductsFetch } from "../data/products.js";
 //async wait for asynchronus code
 //async  makes fn return promise
 //can only use await when inside async fn
+//catching and handling errors using async await 
+
 async function loadPage(){
-    console.log('load page');
+    try{
+        //throw 'error1';
+     console.log('load page');
     await loadProductsFetch();//to wait for it to end
     //waits before going to next line
 
 
- const value=   await new Promise((resolve)=>{
-       loadCart(()=>{
+ const value=   await new Promise((resolve,reject)=>{//reject help us create error in future
+    //reject manually create error
+   // throw 'error2'; it will behave like syncronus code send it in catch and not load cart
+       loadCart(()=>{//throw error will not work here bcz it runs in future 
+        reject('error3');
         resolve('value3');//when finished running fn inside load cart
        });
     });
+} catch(error){//contains info about error if there
+  console.log('Unexpected error. Please try again later');
+}//work similar as promise
+   
     console.log(value);//instead of passing value like we used to do in then here we 
     //can simply store them in variable
     //after loading page and cart we load html
