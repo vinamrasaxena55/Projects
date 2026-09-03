@@ -1,0 +1,38 @@
+##spring.data.mongodb.uri=
+##spring.data.mongodb.database=
+##spring.data.mongodb=true
+##yaml is for providing path like application.propeties but externally
+#
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://vinamra240101121_db_user:fkGdle13blwAcEjH@clusterx.dqssqxj.mongodb.net/?appName=ClusterX
+#      database: journaldb
+#      auto-index-creation: true
+#
+##below in postman we have to put journal in every uri now
+#server:
+#  port: 8080
+#  servlet:
+#    context-path: /journal
+spring:
+  profiles:
+    active: dev #,prod then both run by comma sepration    #this tells run using application-dev
+#in company we don't want to tell which to run dev or prod
+ #so we will put it in configuration of intellije
+
+#logging:
+#  level:
+#    net:
+#      SpringBootProgram:
+#        Important: DEBUG             # this is for logging
+### sabke liye debug hai poore pakage ke liye
+
+## logging:
+   ##  level:
+     ##  root: ERROR
+####  this only print symbol as severity reach error print nothimh else
+###if in root: OFF  or
+## root:
+  ## UserEntryService: OFF       nothing can be printed
+  ## same thing can be achieved by xml  infact xml specefically used for logging
