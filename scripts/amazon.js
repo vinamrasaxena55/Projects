@@ -1,88 +1,20 @@
-// const products=[{//list
-//     image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
-//     name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-//     rating: {
-//         stars:4.5,
-//         count:87
-//     },
-//     priceCents : 1090
-//  },
-//  {
-//      image: 'images/products/intermediate-composite-basketball.jpg',
-//     name: 'Intermediate Size Basketbal',
-//     rating: {
-//         stars:4,
-//         count:127
-//     },
-//     priceCents : 2095
-//  },
 
-//   {
-//      image: 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-//     name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-//     rating: {
-//         stars:4.5,
-//         count:56
-//     },
-//     priceCents : 799
-//  },
-
-//  {
-//      image: 'images/products/black-2-slot-toaster.jpg',
-//     name: '2 Slot Toaster - Black',
-//     rating: {
-//         stars:5,
-//         count:2197
-//     },
-//     priceCents : 1899
-//  },
-//   {
-//      image: 'images/products/6-piece-white-dinner-plate-set.jpg',
-//     name: '6 Piece White Dinner Plate Set',
-//     rating: {
-//         stars:4,
-//         count:37
-//     },
-//     priceCents : 2067
-//  },
-
-//   {
-//      image: 'images/products/6-piece-non-stick-baking-set.webp',
-//     name: '6-Piece Nonstick, Carbon Steel Oven Bakeware Baki...',
-//     rating: {
-//         stars:4.5,
-//         count:175
-//     },
-//     priceCents : 3499
-//  }
-// ];
 
 
 import {cart, addToCart} from '../data/cart.js';
 import { products,loadProducts } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
-loadProducts(renderProductGrid);//products
-//function passed inside bcz it takes time to recieve response of http request
-//without it there will be delay
-//it is a callback-a function that run in future
+loadProducts(renderProductGrid);
 
 function renderProductGrid(){
 
 
-//this above line means we can use cart here from cart.js 
-//.. means getting out of current folder which is script
-//this method prevent naming conflict
 
-let productsHtml=''; //we commented products here as we get our data 
-//products array which we store in another file name data.js
 
-products.forEach((product,index)=>{//looping through products array and generating its html
-    //instead of img we are looping indexes to chanfge img,name at each index
-    //in our rating ones we multiply by 10 bcz our images for 4.5 star is saved as 45 and so on
-    //in our price /100 to convert to dollars
-    //.toFixed for deciding number of ddecimals
-    //we replaced stars And price by methods in class of products
+let productsHtml=''; 
+
+products.forEach((product,index)=>{
 
      
    productsHtml+=`
@@ -139,32 +71,28 @@ products.forEach((product,index)=>{//looping through products array and generati
         </div>
    `;
 });
-// data-product-name="${product.name}">   data attribute which product adding to cart
-//we use product.id bcz it is unique
-// console.log(productsHtml);
-//  ${product.extraInfoHTML()} if clothing then return size chart else empty string
-//${product.extraInfoHTML()}  we dont know which class -polymorphism
+
 document.querySelector('.js-products-grid').innerHTML=productsHtml;
-//above line makes all html change to products Html
 
 
 
 
- function updateCartQuantity(){//it is here not in cart bcz it helps in updating web page
+
+ function updateCartQuantity(){
       let cartQuantity=0;
    cart.forEach((cartItem)=>{
         cartQuantity +=cartItem.quantity;
    });
    document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
-   //now our cart quantity is interactive as quantity increase number change
+   
 }
 
-//making cart add button interactive
+
 document.querySelectorAll('.js-add-to-cart')
-.forEach((button)=>{//looping through each button and on clicking
+.forEach((button)=>{
  button.addEventListener('click',()=>{
-   const productId= button.dataset.productId;//.dataset gives all info to data-  attribute
-    addToCart(productId);//parameter necessary
+   const productId= button.dataset.productId;
+    addToCart(productId);
    updateCartQuantity();
   
 
