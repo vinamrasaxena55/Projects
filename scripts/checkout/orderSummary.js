@@ -6,12 +6,7 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';//
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
-// hello();
-// console.log(dayjs()); these are from external library
 
-// const today=dayjs();
-// today.add(7,'days');//add 7 days to todays date
-// deliveryDate.format('dddd,MMMM D ');//format of day then month then date
 
 export function  renderOrderSummary(){
 
@@ -20,27 +15,16 @@ let cartSummaryHtml='';
 
 cart.forEach((cartItem)=>{
   //generating html of checkout using js
-    const productId=cartItem.productId;//iterating 
+    const productId=cartItem.productId;
     let matchingProduct =getProduct(productId);
 
-    // products.forEach((product)=>{
-    //   if(product.id === productId){
-    //     matchingProduct=product;//now we have access to img etc
-    //   }
-    // });
-   // js-cart-item-container-${matchingProduct.id    to update html after deletion
+  
  
 
            const deliveryOptionId=cartItem.deliveryOptionId;
 
            const deliveryOption=getDeliveryOption(deliveryOptionId);
-           //made an external fn
-
-            // deliveryOptions.forEach((option)=>{
-            //    if(option.id=== deliveryOptionId){
-            //     deliveryOption=option;
-            //    }
-            // });
+         
             const today=dayjs();
             const deliveryDate=today.add(
          deliveryOption.deliveryDays,
@@ -51,7 +35,7 @@ cart.forEach((cartItem)=>{
           );
 
 
-          //$${formatCurrency(matchingProduct.priceCents)} replaced this with method in cart class
+        
 
           cartSummaryHtml += `
           <div class="cart-item-container
@@ -99,17 +83,13 @@ cart.forEach((cartItem)=>{
             `;
 });
 
-//we changed name in radio to ${matchingProduct.id} istead of dilevery-option-1 bcz it will 
-//enable us to choose diff option if name differs
-// ${deliveryOptionsHTML(matchingProduct)}  we passed argument bcz fn doesnt have matching product
+
 
 
 
  function deliveryOptionsHTML(matchingProduct,cartItem){
     let html='';
-    //loop through deliveryOptions
-    //for each option . generate some HTML
-    //Combine Html together
+  
     deliveryOptions.forEach((deliveryOption)=>{
           const today=dayjs();
           const deliveryDate=today.add(
@@ -152,8 +132,7 @@ cart.forEach((cartItem)=>{
 }
 
 
-//data-product-id="${matchingProduct.id}"
-  //data-delivery-option-id="${deliveryOption.id}  used for updating delivery   
+
 
 
 
@@ -161,30 +140,30 @@ document.querySelector('.js-order-summary')
 .innerHTML=cartSummaryHtml;//replacing html with html using js
 
 
-//made data-product-link to remove and match data
+
 document.querySelectorAll('.js-delete-link')
-   .forEach((link)=>{//making delete button interactive using eventlistner
+   .forEach((link)=>{
       link.addEventListener('click',()=>{
- //on clicking  print delete
+
  const productId=link.dataset.productId;
  removeFromCart(productId);
 
      const container=document.querySelector(
-        `.js-cart-item-container-${productId}`//used `` here instead of '' bcz it will read productId
+        `.js-cart-item-container-${productId}`
      );
-     container.remove();//remove from web page
-     renderPaymentSummary();//updating page after deletion of items
+     container.remove();
+     renderPaymentSummary();
       });
    });
 
 document.querySelectorAll('.js-delivery-option')
   .forEach((element)=>{
    element.addEventListener('click',()=>{
-    const {productId,deliveryOptionId}=element.dataset;//deconstructor
+    const {productId,deliveryOptionId}=element.dataset;
      updateDeliveryOption(productId,deliveryOptionId);
-     renderOrderSummary();//rerun code so to update delivery in top
-     //updated data and rerum it
-     renderPaymentSummary();//update payment when delivery option changed
+     renderOrderSummary();
+   
+     renderPaymentSummary();
    });
   });
 }
