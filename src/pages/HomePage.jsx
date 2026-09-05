@@ -7,6 +7,7 @@ import { Header } from '../components/Header';
 export function HomePage() {
 
  const [products, setProducts]=useState([]);//updater fn the second arg lets us pdate value
+ const [cart ,setCart]=useState([]);
  //in this case 'products' and regenarates HTML
  //after  getting response frm backend we will give it here
 
@@ -16,6 +17,13 @@ export function HomePage() {
        axios.get('http://localhost:3000/api/products')
           .then((response)=>{
             setProducts(response.data);
+
+        
+            axios.get('http://localhost:3000/api/cart-items')
+            .then((response)=>{
+              //  console.log(response.data);//returns array of cart//
+              setCart(response.data);
+            })
 
           },[]);//if dependency array is empty it means the 
           //above code will run once when component created
@@ -57,13 +65,16 @@ export function HomePage() {
 
 
 
-
+//make sure name of data in useState 'products' should match 
+//name in html products.map()
   return (
     //.map() takes value and maps it o new value 
     //we are looping through each product and generating its HTML
-    //when we loop we kive key which keep track changes 
+    //when we loop we kive key which keep track changes
+    
+    //cart passed in  Header bcz cart is in header
     <>
-      <Header />
+      <Header  cart={cart}/>
 
       <div className="home-page">
         <div className="products-grid">
