@@ -14,12 +14,12 @@ export function HomePage() {
 
 //using axios.get instead of fetch it is better 
   useEffect(()=>{//useEffect lets us control when some code runs
-       axios.get('http://localhost:3000/api/products')
+       axios.get('/api/products')
           .then((response)=>{
             setProducts(response.data);
 
-        
-            axios.get('http://localhost:3000/api/cart-items')
+        //instead of using http://localhost:3000 we put it in vite.config
+            axios.get('/api/cart-items')
             .then((response)=>{
               //  console.log(response.data);//returns array of cart//
               setCart(response.data);
