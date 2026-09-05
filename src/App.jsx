@@ -13,8 +13,11 @@ function App() {
   //page checkout , orders and tracking
      const [cart ,setCart]=useState([]);
      useEffect(()=>{
-            axios.get('/api/cart-items')
+            axios.get('/api/cart-items?expand=product')//it is query parameter which lets
+            //us add addtional info to our requests
+            
             .then((response)=>{
+              console.log("CART:", response.data);
               //  console.log(response.data);//returns array of cart//
               setCart(response.data);
             });

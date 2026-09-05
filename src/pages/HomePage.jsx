@@ -3,31 +3,31 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './HomePage.css';
 import { Header } from '../components/Header';
+import { formatMoney } from '../utils/money';
 
-export function HomePage() {
+export function HomePage({cart}) {//given in App
 
- const [products, setProducts]=useState([]);//updater fn the second arg lets us pdate value
- const [cart ,setCart]=useState([]);
+//updater fn the second arg lets us pdate value
+ const [products, setProducts]=useState([]);
+
  //in this case 'products' and regenarates HTML
  //after  getting response frm backend we will give it here
 
 
 //using axios.get instead of fetch it is better 
   useEffect(()=>{//useEffect lets us control when some code runs
-       axios.get('/api/products')
+         
+            axios.get('/api/products')
           .then((response)=>{
+            console.log(response.data);
             setProducts(response.data);
 
         //instead of using http://localhost:3000 we put it in vite.config
-            axios.get('/api/cart-items')
-            .then((response)=>{
-              //  console.log(response.data);//returns array of cart//
-              setCart(response.data);
-            })
+          
 
-          },[]);//if dependency array is empty it means the 
+          });//if dependency array is empty it means the 
           //above code will run once when component created
-  });//what happens is setProducts get response from backed and get data 
+  },[]);//what happens is setProducts get response from backend and get data 
   //then setProducts update products then this products is used to generate html
 
 
@@ -99,7 +99,7 @@ export function HomePage() {
               </div>
 
               <div className="product-price">
-                ${(product.priceCents/100).toFixed(2)}
+                {formatMoney(product.priceCents)}
               </div>
 
               <div className="product-quantity-container">
