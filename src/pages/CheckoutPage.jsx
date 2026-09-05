@@ -4,7 +4,7 @@ import './CheckoutPage.css';
 export function CheckoutPage() {
     return (//though our index has title beforehand but below title overwrites it when checkout opened
         <>
-         <title>Checkout</title>
+       
             <div className="checkout-header">
                 <div className="header-content">
                     <div className="checkout-header-left-section">
