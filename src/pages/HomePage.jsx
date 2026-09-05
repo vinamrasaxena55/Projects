@@ -4,6 +4,25 @@ import { Header } from '../components/Header';
 import { products } from '../../starting-code/data/products';
 export function HomePage() {
   //we can return only one component
+
+  //response in .then store response of fetch 
+  fetch('http://localhost:3000/api/products')
+  .then((response)=>{
+     return  response.json();
+  }).then((data)=>{//response.json stored in data
+         console.log(data);
+  });
+  // .then((response)=>{
+  //             //  console.log(response);//return response in console
+  //             //json gives data attached to response
+  //             //.then() used with response.json as it is also asynchronus
+  //             response.json().then((data)=>{
+  //                  console.log(data);//gives json body
+  //             });
+  // });
+
+
+
   return (
     //.map() takes value and maps it o new value 
     //we are looping through each product and generating its HTML
