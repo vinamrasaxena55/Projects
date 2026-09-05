@@ -1,17 +1,49 @@
 //we moved everything from starting code and moved to jsx
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './HomePage.css';
 import { Header } from '../components/Header';
-import { products } from '../../starting-code/data/products';
+
 export function HomePage() {
-  //we can return only one component
+
+ const [products, setProducts]=useState([]);//updater fn the second arg lets us pdate value
+ //in this case 'products' and regenarates HTML
+ //after  getting response frm backend we will give it here
+
+
+//using axios.get instead of fetch it is better 
+  useEffect(()=>{//useEffect lets us control when some code runs
+       axios.get('http://localhost:3000/api/products')
+          .then((response)=>{
+            setProducts(response.data);
+
+          },[]);//if dependency array is empty it means the 
+          //above code will run once when component created
+  });//what happens is setProducts get response from backed and get data 
+  //then setProducts update products then this products is used to generate html
+
+
+
+
+    //  axios.get('http://localhost:3000/api/products')
+    // .then((response)=>{
+    //    console.log(response.data);//did not need extra then as it returned array
+    // });
+
+
+
+
+
+
+
 
   //response in .then store response of fetch 
-  fetch('http://localhost:3000/api/products')
-  .then((response)=>{
-     return  response.json();
-  }).then((data)=>{//response.json stored in data
-         console.log(data);
-  });
+  // fetch('http://localhost:3000/api/products')
+  // .then((response)=>{
+  //    return  response.json();
+  // }).then((data)=>{//response.json stored in data
+  //        console.log(data);
+  // });
   // .then((response)=>{
   //             //  console.log(response);//return response in console
   //             //json gives data attached to response
@@ -20,6 +52,9 @@ export function HomePage() {
   //                  console.log(data);//gives json body
   //             });
   // });
+
+
+
 
 
 
